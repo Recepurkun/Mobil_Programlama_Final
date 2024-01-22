@@ -47,7 +47,6 @@ import java.util.Random;
 
 public class AddPhotoFragment extends Fragment {
     private static final int CAMERA_PERMISSION_REQUEST = 100;
-    private static final int STORAGE_PERMISSION_REQUEST = 101;
     String  girisYapan, girisYapanName;
     Button btn_camera, btn_photosave;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -74,12 +73,12 @@ public class AddPhotoFragment extends Fragment {
 
         Intent intent = getActivity().getIntent();
         girisYapan = intent.getStringExtra("email");
-        girisYapanName = intent.getStringExtra("firstname");
+        //girisYapanName = intent.getStringExtra("firstname");
         fotoLabelleriGoster(girisYapan);
         if (girisYapan != null) {
             // userEmail değeri null değilse, burada kullanabilirsiniz
             Toast.makeText(getContext(), "Email: " + girisYapan, Toast.LENGTH_SHORT).show();
-            Toast.makeText(getContext(), "Username: " + girisYapanName, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getContext(), "Username: " + girisYapanName, Toast.LENGTH_SHORT).show();
         } else {
             // userEmail null ise, bir hata durumu olabilir
             Toast.makeText(getContext(), "Email bilgisi alınamadı" + girisYapan, Toast.LENGTH_SHORT).show();
@@ -89,7 +88,6 @@ public class AddPhotoFragment extends Fragment {
         btn_camera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //takeAphoto();
                 // Kamera izin kontrolü
                 if (checkCameraPermission()) {
                     takeAphoto();
@@ -108,7 +106,7 @@ public class AddPhotoFragment extends Fragment {
                 uploadTask.addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(getActivity(), "FOTO YUKLEME BASARISIZ OLDU", Toast.LENGTH_LONG).show();
+                        //Toast.makeText(getActivity(), "FOTO YUKLEME BASARISIZ OLDU", Toast.LENGTH_LONG).show();
                         Log.e("UPLOAD_ERROR", "Fotoğraf yükleme başarısız oldu.", e);
                     }
                 }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -118,6 +116,7 @@ public class AddPhotoFragment extends Fragment {
                             @Override
                             public void onSuccess(Uri uri) {
                                 //String DownloadUrl = uri.toString();
+                                //Toast.makeText(getActivity(), "FOTO YUKLEME BASARILI OLDU", Toast.LENGTH_LONG).show();
                             }
                         });
                     }
@@ -137,13 +136,13 @@ public class AddPhotoFragment extends Fragment {
                         .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                             @Override
                             public void onSuccess(DocumentReference documentReference) {
-                                Toast.makeText(getActivity(), "Galeri Eklendi", Toast.LENGTH_LONG).show();
+                                Toast.makeText(getActivity(), "Galeri Eklendi", Toast.LENGTH_SHORT).show();
                             }
                         })
                         .addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(getActivity(), "Galeri Yüklenemedi", Toast.LENGTH_LONG).show();
+                                Toast.makeText(getActivity(), "Galeri Yüklenemedi", Toast.LENGTH_SHORT).show();
                             }
                         });
             }
@@ -223,7 +222,7 @@ public class AddPhotoFragment extends Fragment {
                             constraintSet.applyTo(labelLayout);
                         }
                     } else {
-                        Toast.makeText(getContext(), "Firestore'dan veri çekilemedi: " + task.getException(), Toast.LENGTH_LONG).show();
+                        //Toast.makeText(getContext(), "Firestore'dan veri çekilemedi: " + task.getException(), Toast.LENGTH_LONG).show();
                         Log.e("FIRESTORE", "Veri çekilemedi", task.getException());
                     }
                 });

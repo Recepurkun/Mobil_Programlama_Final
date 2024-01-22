@@ -40,22 +40,16 @@ public class AddLabelFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.fragment_addlabel, container, false);
 
-
         labelAdd = root.findViewById(R.id.labelKayit_Btn);
-
-        // Use FirebaseStorage to get the StorageReference
-        //FirebaseStorage storage = FirebaseStorage.getInstance();
-        //FirebaseFirestore storage = FirebaseFirestore.getInstance();
-        //StorageReference storageRef = storage.getReference();
 
         Intent intent = getActivity().getIntent();
         girisYapan = intent.getStringExtra("email");
-        String userName = intent.getStringExtra("firstname");
+        //String userName = intent.getStringExtra("firstname");
         labelleriGoster(girisYapan);
         if (girisYapan != null) {
             // userEmail değeri null değilse, burada kullanabilirsiniz
             Toast.makeText(getContext(), "Email: " + girisYapan, Toast.LENGTH_SHORT).show();
-            Toast.makeText(getContext(), "Username: " + userName, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getContext(), "Username: " + userName, Toast.LENGTH_SHORT).show();
         } else {
             // userEmail null ise, bir hata durumu olabilir
             Toast.makeText(getContext(), "Email bilgisi alınamadı", Toast.LENGTH_SHORT).show();
@@ -96,7 +90,7 @@ public class AddLabelFragment extends Fragment {
         this.girisYapan = girisYapan;
         labelsLineer = root.findViewById(R.id.addlabel_view);
         labelsLineer.removeAllViews();
-        Toast.makeText(getContext(), "Burası labelleriGoster: " + this.girisYapan, Toast.LENGTH_LONG).show();
+        //Toast.makeText(getContext(), "Burası labelleriGoster: " + this.girisYapan, Toast.LENGTH_LONG).show();
 
         db.collection("labels")
                 .whereEqualTo("email", this.girisYapan)
@@ -141,7 +135,6 @@ public class AddLabelFragment extends Fragment {
                             constraintSet.applyTo(labelLayout);
                         }
                     } else {
-                        Toast.makeText(getContext(), "Firestore'dan veri çekilemedi: " + task.getException(), Toast.LENGTH_LONG).show();
                         Log.e("FIRESTORE", "Veri çekilemedi", task.getException());
                     }
                 });
@@ -155,13 +148,13 @@ public class AddLabelFragment extends Fragment {
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
-                        Toast.makeText(getContext(), "Label SILINDI - labelSil fonksiyonu", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "Label başarılı bir şekilde silindi", Toast.LENGTH_SHORT).show();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(getContext(), "Label SILINIRKEN HATA olustu - labelSil fonksiyonu", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "Label silinirken hata olustu", Toast.LENGTH_SHORT).show();
                     }
                 });
     }

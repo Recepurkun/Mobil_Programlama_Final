@@ -2,10 +2,12 @@ package com.example.myapplication;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
 import android.widget.Toast;
 
+import com.example.myapplication.activities.LoginActivity;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
@@ -51,6 +53,19 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
+        MenuItem logoutItem = navigationView.getMenu().findItem(R.id.nav_itemForLogout);
+        logoutItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                // Logout işlemi gerçekleştiğinde Intent'i başlat
+                Intent loginIntent = new Intent(getApplicationContext(), LoginActivity.class);
+                startActivity(loginIntent);
+
+                // Diğer logout işlemlerini gerçekleştir...
+                return true;
+            }
+        });
 
         // ----------------------------------------------------------------------------------------
         Intent intent = getIntent();

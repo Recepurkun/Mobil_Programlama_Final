@@ -50,12 +50,12 @@ public class GalleryFragment extends Fragment {
 
         Intent intent = getActivity().getIntent();
         girisYapan = intent.getStringExtra("email");
-        girisYapanName = intent.getStringExtra("firstname");
+        //girisYapanName = intent.getStringExtra("firstname");
         //fotoLabelleriGoster(girisYapan);
         if (girisYapan != null) {
             // userEmail değeri null değilse, burada kullanabilirsiniz
             Toast.makeText(getContext(), "Email: " + girisYapan, Toast.LENGTH_SHORT).show();
-            Toast.makeText(getContext(), "Username: " + girisYapanName, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getContext(), "Username: " + girisYapanName, Toast.LENGTH_SHORT).show();
         } else {
             // userEmail null ise, bir hata durumu olabilir
             Toast.makeText(getContext(), "Email bilgisi alınamadı" + girisYapan, Toast.LENGTH_SHORT).show();
@@ -97,7 +97,7 @@ public class GalleryFragment extends Fragment {
                                         labelsList.add(label);
                                     }
                                     else{
-                                        Toast.makeText(getContext(), "Firestore labels içi string değil!" + item, Toast.LENGTH_SHORT).show();
+                                        //Toast.makeText(getContext(), "Firestore labels içi string değil!" + item, Toast.LENGTH_SHORT).show();
                                         Log.e("Firestore ", "labels içi string değil!");
                                     }
                                 }
@@ -189,7 +189,7 @@ public class GalleryFragment extends Fragment {
                             notbegeni.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-                                    int inalDislike = finaldislike - 1;
+                                    int inalDislike = finaldislike + 1;
                                     DocumentReference docRef = db.collection("galeri").document(ID);
                                     docRef.update("dislike", String.valueOf(inalDislike))
                                             .addOnSuccessListener(aVoid -> Log.d("firestore ", "1. nbegeni!!!"))
@@ -225,7 +225,7 @@ public class GalleryFragment extends Fragment {
                                         uniqueLabelsSet.add(label);
                                     }
                                     else{
-                                        Toast.makeText(getContext(), "Firestore labels içi string değil!" + item, Toast.LENGTH_SHORT).show();
+                                        //Toast.makeText(getContext(), "Firestore labels içi string değil!" + item, Toast.LENGTH_SHORT).show();
                                         Log.e("Firestore ", "labels içi string değil!");
                                     }
                                 }
@@ -280,7 +280,7 @@ public class GalleryFragment extends Fragment {
                                                                 labelsList.add(label);
                                                             }
                                                             else{
-                                                                Toast.makeText(getContext(), "Firestore labels içi string değil!" + item, Toast.LENGTH_SHORT).show();
+                                                               // Toast.makeText(getContext(), "Firestore labels içi string değil!" + item, Toast.LENGTH_SHORT).show();
                                                                 Log.e("Firestore ", "labels içi string değil!");
                                                             }
                                                         }
@@ -363,8 +363,8 @@ public class GalleryFragment extends Fragment {
                                                             int inalLike = finalLike + 1;
                                                             DocumentReference docRef = db.collection("galeri").document(ID);
                                                             docRef.update("like", String.valueOf(inalLike))
-                                                                    .addOnSuccessListener(aVoid -> Log.d("firestore ", "begeni!!!"))
-                                                                    .addOnFailureListener(e -> Log.e("direstore", "!!!begeni", e));
+                                                                    .addOnSuccessListener(aVoid -> Log.d("firestore ", "like!!!"))
+                                                                    .addOnFailureListener(e -> Log.e("direstore", "!!!like", e));
                                                             yenile();
                                                         }
                                                     });
@@ -373,11 +373,11 @@ public class GalleryFragment extends Fragment {
                                                     notbegeni.setOnClickListener(new View.OnClickListener() {
                                                         @Override
                                                         public void onClick(View v) {
-                                                            int inalDislike = finaldislike - 1;
+                                                            int inalDislike = finaldislike + 1;
                                                             DocumentReference docRef = db.collection("galeri").document(ID);
                                                             docRef.update("dislike", String.valueOf(inalDislike))
-                                                                    .addOnSuccessListener(aVoid -> Log.d("firestore ", "2. nbegeni!!!"))
-                                                                    .addOnFailureListener(e -> Log.e("direstore", "!!!nbegeni", e));
+                                                                    .addOnSuccessListener(aVoid -> Log.d("firestore ", "2. addOnSuccess dislike!!!"))
+                                                                    .addOnFailureListener(e -> Log.e("direstore", "!!!2. addOnFailure dislike", e));
                                                             yenile();
                                                         }
                                                     });

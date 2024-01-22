@@ -26,7 +26,13 @@
             android:id="@+id/nav_About"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:icon="@android:drawable/btn_star_big_on"
+            android:icon="@android:drawable/sym_action_email"
             android:title="About" />
+        <item
+            android:id="@+id/nav_itemForLogout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:icon="@android:drawable/ic_lock_power_off"
+            android:title="Logout" />
     </group>
 </menu>

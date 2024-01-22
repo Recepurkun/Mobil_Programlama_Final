@@ -14,22 +14,22 @@
     <fragment
         android:id="@+id/nav_AddLabel"
         android:name="com.example.myapplication.ui.AddLabelFragment"
-        android:label="@string/menu_gallery"
+        android:label="Add Label"
         tools:layout="@layout/fragment_gallery" />
 
     <fragment
         android:id="@+id/nav_AddPhoto"
         android:name="com.example.myapplication.ui.AddPhotoFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
+        android:label="Add Photo"
+        tools:layout="@layout/fragment_addphoto" />
     <fragment
         android:id="@+id/nav_Gallery"
         android:name="com.example.myapplication.ui.GalleryFragment"
-        android:label="fragment_gallery2"
-        tools:layout="@layout/fragment_gallery2" />
+        android:label="Gallery"
+        tools:layout="@layout/fragment_addlabel" />
     <fragment
         android:id="@+id/nav_About"
         android:name="com.example.myapplication.ui.AboutFragment"
-        android:label="fragment_about"
+        android:label="About"
         tools:layout="@layout/fragment_about" />
 </navigation>

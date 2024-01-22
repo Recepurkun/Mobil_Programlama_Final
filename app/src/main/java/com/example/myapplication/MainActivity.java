@@ -1,8 +1,10 @@
 package com.example.myapplication;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
+import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
@@ -24,6 +26,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        String girisYapan;
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -47,6 +51,24 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
+        // ----------------------------------------------------------------------------------------
+        Intent intent = getIntent();
+        if (intent != null) {
+            girisYapan = intent.getStringExtra("email");
+            String userName = intent.getStringExtra("firstname");
+            if (girisYapan != null) {
+                // userEmail değeri null değilse
+                Toast.makeText(getApplicationContext(), "Email: " + girisYapan, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Username: " + userName, Toast.LENGTH_SHORT).show();
+            } else {
+                // userEmail null ise,
+                Toast.makeText(getApplicationContext(), "Email bilgisi alınamadı", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "userName bilgisi alınamadı", Toast.LENGTH_SHORT).show();
+            }
+        }
+
+
     }
 
     @Override

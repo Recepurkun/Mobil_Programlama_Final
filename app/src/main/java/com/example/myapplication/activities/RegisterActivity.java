@@ -18,13 +18,12 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 public class RegisterActivity extends AppCompatActivity {
 
     EditText firstName, lastName, email, password;
     Button BtnSignup, BtnLogin;
-
-    //Button loginBtn, signUpBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,21 +68,54 @@ public class RegisterActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()){
-                            String uid = task.getResult().getUser().getUid();
-                            Toast.makeText(getApplicationContext(), "Kaydiniz basariyla gerceklesti!", Toast.LENGTH_LONG).show();
-                            startActivity(new Intent(getApplicationContext(), LoginActivity.class));
-
                             FirebaseFirestore db = FirebaseFirestore.getInstance();
-                            CollectionReference ref = db.collection("users");
-                            Users user = new Users(strFirstName,strLastName,strEmail,strPassword);
-                            ref.add(user);
+                            CollectionReference userCollectionRef = db.collection("users");
+
+                            userCollectionRef.whereEqualTo("email", strEmail)
+                                    .get()
+                                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                            if (task.isSuccessful()){
+                                                if(task.getResult() != null && !task.getResult().isEmpty()){
+                                                    Toast.makeText(getApplicationContext(), "Kayit basarisiz!", Toast.LENGTH_LONG).show();
+                                                }
+                                                else{
+                                                    Users user = new Users(strFirstName,strLastName,strEmail,strPassword);
+                                                    userCollectionRef.document(strEmail).set(user)
+                                                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                                @Override
+                                                                public void onComplete(@NonNull Task<Void> task) {
+                                                                    if(task.isSuccessful()){
+                                                                        Toast.makeText(getApplicationContext(), "Kaydiniz basariyla gerceklesti!", Toast.LENGTH_LONG).show();
+                                                                        startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                                                                    }
+                                                                    else{
+                                                                        Toast.makeText(getApplicationContext(), "Kaydiniz ekleme işi başarısız!", Toast.LENGTH_LONG).show();
+                                                                    }
+                                                                }
+                                                            });
+                                                }
+                                            }
+                                            else{
+                                                Toast.makeText(getApplicationContext(), "Kayit basarisiz!", Toast.LENGTH_LONG).show();
+                                            }
+                                        };
+                                    });
                         }
                         else{
-                            Toast.makeText(getApplicationContext(), "Kayit basarisiz!", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(), "Bu eposta adresi zaten kullanimda!", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
 
+            }
+        });
+
+        BtnLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), LoginActivity.class));
             }
         });
 
